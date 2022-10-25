@@ -89,6 +89,27 @@ def query6():
     cursor.close()
     cnx.close()
 
+def query8():
+
+    cnx = conexion.connect_db()
+    cursor = cnx.cursor()
+
+    # Selecciona el ultimo id en la tabla de empleados
+    query = ("UPDATE salaries SET salary = 45000 Where salaries.emp_no = (SELECT MAX(employees.emp_no) FROM employees)")
+
+    cursor.execute(query)
+
+    # Por cada dato en el resultado de la query, hacemos que los valores se guarden en los brackets y con el format decimos 
+    # que brackets tiene que informacion(tienen que estar organizados de igual manera)
+    for (numero) in cursor:
+        print("El empleado {} ".format(numero))
+
+
+    cursor.close()
+    cnx.close()
+
+    
+
 bucle = True
 
 while bucle == True:
@@ -99,6 +120,7 @@ while bucle == True:
     print("4. Lista nombre, apellidos y títulos que ostenta cada uno de los empleados.")
     print("5. Lista para cada empleado quien es su manager")
     print("6. Lista los empleados con fecha de contratación posterior a 22 de febrero de 1991.")
+
     print("7. Salir")
     print("**************************")
 
@@ -118,22 +140,11 @@ while bucle == True:
         query6()
     elif (opcion == "7"):
             bucle=False
+    elif (opcion == "8"):
+        query8()
     else:
             print("Opción no encontrada")
 
 
 
 
-
-
-
-
-#     Lista la información de los empleados en el que las fechas aparezcan en formato
-# dd/mm/yyyy
-# 2. Lista nombre, apellidos y salario de los empleados.
-# 3. Lista nombre, apellidos y departamento al que pertenecen los empleados.
-# 4. Lista nombre, apellidos y títulos que ostenta cada uno de los empleados.
-# 5. Lista para cada empleado quien es su manager
-# 6. Lista los empleados con fecha de contratación posterior a 22 de febrero de 1991.
-# Muestra la identificación del empleado, el nombre del empleado, el salario y la fecha
-# de contratación
